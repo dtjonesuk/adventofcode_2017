@@ -1,22 +1,7 @@
-//
-// Created by David on 01/12/2023.
-//
-#ifndef ADVENT_OF_CODE_2017_ADVENT_H
-#define ADVENT_OF_CODE_2017_ADVENT_H
+#ifndef ADVENT_H
+#define ADVENT_H
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include <map>
-#include <algorithm>
-#include <functional>
-#include <numeric>
-#include <ranges>
-#include <regex>
-#include <chrono>
-#include <cassert>
+#include <bits/stdc++.h>
 
 /// Benchmarks a callable
 template<typename T>
@@ -38,4 +23,4 @@ void run(const std::string &day, const std::string &part, std::function<T(void)>
               << "s)." << std::endl;
 }
 
-#endif //ADVENT_OF_CODE_2017_ADVENT_H
+#endif //ADVENT_H

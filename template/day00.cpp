@@ -1,12 +1,12 @@
-#include "../advent.h"
+#include <advent.h>
 
 /// Change this to the current day
-static const std::string day = "##";
-static const std::string inputFilename = "..\\day" + day + "\\input.txt";
-static const std::string testFilename = "..\\day" + day + "\\test.txt";
+extern const std::string day = "##";
+static const std::string inputFilename = "input.txt";
+static const std::string testFilename = "test.txt";
 
 struct PuzzleInput {
-    std::vector <std::string> lines;
+    std::vector<std::string> lines;
 
     explicit PuzzleInput(std::istream &istream) {
         std::string line;
@@ -19,17 +19,34 @@ struct PuzzleInput {
 
 };
 
-/// Unit Test
-void test() {
+/// Unit tests
+#ifdef CATCH2
+#include <catch2/catch_test_macros.hpp>
+TEST_CASE("Part One Tests") {
     std::ifstream istream(testFilename);
     PuzzleInput input(istream);
-    assert(true);
+
+    REQUIRE(input.lines.size() == 1);
+
+    SECTION("") {
+
+    }
 }
+
+TEST_CASE("Part Two tests") {
+    std::ifstream istream(testFilename);
+    PuzzleInput input(istream);
+
+    REQUIRE(input.lines.size() == 1);
+
+    SECTION("") {
+
+    }
+}
+#endif
 
 /// Part One Solution
 int64_t partOne() {
-    using namespace std::views;
-
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
@@ -39,17 +56,8 @@ int64_t partOne() {
 
 /// Part Two Solution
 int64_t partTwo() {
-    using namespace std::views;
-
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
     return 0;
-}
-
-
-int main() {
-    test();
-    run<int64_t>(day, "One", partOne);
-    run<int64_t>(day, "Two", partTwo);
 }

@@ -1,10 +1,9 @@
-#include "../advent.h"
-#include <set>
+#include <advent.h>
 
 /// Change this to the current day
-static const std::string day = "01";
-static const std::string inputFilename = "..\\day" + day + "\\input.txt";
-static const std::string testFilename = "..\\day" + day + "\\test.txt";
+extern const std::string day = PROJECT_DAY;
+static const std::string inputFilename = "input.txt";
+static const std::string testFilename = "test.txt";
 
 struct PuzzleInput {
     std::vector<std::string> lines;
@@ -52,11 +51,40 @@ void test() {
     assert(solve_captcha(p2, p2.length() / 2) == 4);
 }
 
+/// Unit tests
+#ifdef CATCH2
+#include <catch2/catch_test_macros.hpp>
+TEST_CASE("Part One Tests") {
+    std::ifstream istream(testFilename);
+    PuzzleInput input(istream);
+
+    REQUIRE(input.lines.size() == 1);
+
+
+    SECTION("") {
+        REQUIRE(solve_captcha(input.lines[0]) == 9);
+
+
+        std::string p2 = "12131415";
+        REQUIRE(solve_captcha(p2, p2.length() / 2) == 4);
+    }
+}
+
+TEST_CASE("Part Two tests") {
+    std::ifstream istream(testFilename);
+    PuzzleInput input(istream);
+
+    REQUIRE(input.lines.size() == 1);
+
+    SECTION("") {
+
+    }
+}
+#endif
+
 
 /// Part One Solution
 int64_t partOne() {
-    using namespace std::views;
-
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
@@ -67,8 +95,6 @@ int64_t partOne() {
 
 /// Part Two Solution
 int64_t partTwo() {
-    using namespace std::views;
-
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
@@ -77,9 +103,3 @@ int64_t partTwo() {
     return solve_captcha(captcha, captcha.length() / 2);
 }
 
-
-int main() {
-    test();
-    run<int64_t>(day, "One", partOne);
-    run<int64_t>(day, "Two", partTwo);
-}
