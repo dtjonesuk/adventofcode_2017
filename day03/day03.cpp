@@ -1,7 +1,7 @@
 #include <advent.h>
 
 /// Change this to the current day
-extern const std::string day = "##";
+extern const std::string day = PROJECT_DAY;
 static const std::string inputFilename = "input.txt";
 static const std::string testFilename = "test.txt";
 
