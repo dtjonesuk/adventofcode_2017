@@ -62,7 +62,7 @@ Comparator CreateComparator(const std::string &from) {
 }
 
 struct Instruction {
-    std::string reg;
+    std::string left;
     Operator op;
     int immediate;
     Comparator cmp;
@@ -71,7 +71,7 @@ struct Instruction {
 
     Instruction(const std::string &reg, const std::string &op, int immediate, const std::string &cmp, const std::string &left,
                 int right) :
-            reg(reg), op(CreateOperator(op)), immediate(immediate), cmp(CreateComparator(cmp)), left(left), right(right) {}
+            left(reg), op(CreateOperator(op)), immediate(immediate), cmp(CreateComparator(cmp)), left(left), right(right) {}
 };
 
 struct CPU {
@@ -93,9 +93,9 @@ private:
         int left = registers[instruction.left];
         if (comparator(left, instruction.right)) {
             auto op = operators[static_cast<size_t>(instruction.op)];
-            int value = registers[instruction.reg];
+            int value = registers[instruction.left];
             value = op(value, instruction.immediate);
-            registers[instruction.reg] = value;
+            registers[instruction.left] = value;
 
             if (value > highest)
                 highest = value;
