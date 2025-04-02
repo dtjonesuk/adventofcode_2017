@@ -45,11 +45,11 @@ Coord &operator+(Coord &a, const Coord &b) {
 std::pair<std::string, int> find_word(const PuzzleInput &input) {
     std::string word;
 
-    int max_y = input.lines.size() - 1;
-    int max_x = input.lines[0].size() - 1;
+    int max_y = (int)input.lines.size() - 1;
+    int max_x = (int)input.lines[0].size() - 1;
 
     // find starting position
-    int start = distance(input.lines[0].begin(), std::ranges::find(input.lines[0], '|'));
+    int start = (int)distance(input.lines[0].begin(), std::ranges::find(input.lines[0], '|'));
 
     // set initial position, first row
     Coord position(start, 0);
@@ -149,7 +149,7 @@ TEST_CASE("Part Two tests") {
 #endif
 
 /// Part One Solution
-int64_t partOne() {
+ReturnType partOne() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
@@ -161,7 +161,7 @@ int64_t partOne() {
 
 
 /// Part Two Solution
-int64_t partTwo() {
+ReturnType partTwo() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 

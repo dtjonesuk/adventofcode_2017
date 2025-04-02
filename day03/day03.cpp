@@ -185,13 +185,13 @@ TEST_CASE("Part Two tests") {
 
 
 /// Part One Solution
-int64_t partOne() {
+ReturnType partOne() {
     return manhattan_distance(input);
 }
 
 
 /// Part Two Solution
-int64_t partTwo() {
+ReturnType partTwo() {
 
 
     return 0;

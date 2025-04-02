@@ -62,7 +62,7 @@ Comparator CreateComparator(const std::string &from) {
 }
 
 struct Instruction {
-    std::string left;
+    std::string reg;
     Operator op;
     int immediate;
     Comparator cmp;
@@ -71,7 +71,7 @@ struct Instruction {
 
     Instruction(const std::string &reg, const std::string &op, int immediate, const std::string &cmp, const std::string &left,
                 int right) :
-            left(reg), op(CreateOperator(op)), immediate(immediate), cmp(CreateComparator(cmp)), left(left), right(right) {}
+            reg(reg), op(CreateOperator(op)), immediate(immediate), cmp(CreateComparator(cmp)), left(left), right(right) {}
 };
 
 struct CPU {
@@ -93,9 +93,9 @@ private:
         int left = registers[instruction.left];
         if (comparator(left, instruction.right)) {
             auto op = operators[static_cast<size_t>(instruction.op)];
-            int value = registers[instruction.left];
+            int value = registers[instruction.reg];
             value = op(value, instruction.immediate);
-            registers[instruction.left] = value;
+            registers[instruction.reg] = value;
 
             if (value > highest)
                 highest = value;
@@ -169,7 +169,7 @@ TEST_CASE("Part Two tests") {
 #endif
 
 /// Part One Solution
-int64_t partOne() {
+ReturnType partOne() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
@@ -186,7 +186,7 @@ int64_t partOne() {
 
 
 /// Part Two Solution
-int64_t partTwo() {
+ReturnType partTwo() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
     CPU cpu(input.instructions);

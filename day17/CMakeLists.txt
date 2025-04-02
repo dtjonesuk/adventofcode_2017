@@ -16,21 +16,21 @@ add_executable(${PROJECT_NAME}
         ${PROJECT_NAME}.cpp
 )
 
-add_custom_command(
-        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/input.txt"
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/input.txt ${CMAKE_CURRENT_BINARY_DIR}/input.txt
-        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/input.txt"
-        COMMENT "Copying input.txt to output directory"
-)
-
-add_custom_command(
-        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/test.txt"
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/test.txt ${CMAKE_CURRENT_BINARY_DIR}/test.txt
-        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/test.txt"
-        COMMENT "Copying test.txt to output directory"
-)
-
-add_custom_target(${PROJECT_NAME}_copyfiles ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/input.txt ${CMAKE_CURRENT_BINARY_DIR}/test.txt)
+#add_custom_command(
+#        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/input.txt"
+#        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/input.txt ${CMAKE_CURRENT_BINARY_DIR}/input.txt
+#        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/input.txt"
+#        COMMENT "Copying input.txt to output directory"
+#)
+#
+#add_custom_command(
+#        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/test.txt"
+#        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/test.txt ${CMAKE_CURRENT_BINARY_DIR}/test.txt
+#        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/test.txt"
+#        COMMENT "Copying test.txt to output directory"
+#)
+#
+#add_custom_target(${PROJECT_NAME}_copyfiles ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/input.txt ${CMAKE_CURRENT_BINARY_DIR}/test.txt)
 
 #add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_copyfiles)
 #add_dependencies(${PROJECT_NAME}_tests ${PROJECT_NAME}_copyfiles)

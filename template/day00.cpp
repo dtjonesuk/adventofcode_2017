@@ -37,8 +37,6 @@ TEST_CASE("Part Two tests") {
     std::ifstream istream(testFilename);
     PuzzleInput input(istream);
 
-    REQUIRE(input.lines.size() == 1);
-
     SECTION("") {
 
     }
@@ -46,7 +44,7 @@ TEST_CASE("Part Two tests") {
 #endif
 
 /// Part One Solution
-int64_t partOne() {
+ReturnType partOne() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
@@ -55,7 +53,7 @@ int64_t partOne() {
 
 
 /// Part Two Solution
-int64_t partTwo() {
+ReturnType partTwo() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 

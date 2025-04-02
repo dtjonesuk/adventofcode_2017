@@ -39,24 +39,12 @@ int solve_captcha(const std::string &captcha, const ptrdiff_t step = 1) {
     return total;
 }
 
-/// Unit Test
-void test() {
-//    std::ifstream istream(testFilename);
-    std::stringstream sstream{"91212129"};
-    PuzzleInput input(sstream);
-
-    assert(solve_captcha(input.lines[0]) == 9);
-
-    std::string p2 = "12131415";
-    assert(solve_captcha(p2, p2.length() / 2) == 4);
-}
-
 /// Unit tests
 #ifdef CATCH2
 #include <catch2/catch_test_macros.hpp>
 TEST_CASE("Part One Tests") {
-    std::ifstream istream(testFilename);
-    PuzzleInput input(istream);
+    std::stringstream sstream{"91212129"};
+    PuzzleInput input(sstream);
 
     REQUIRE(input.lines.size() == 1);
 
@@ -74,17 +62,12 @@ TEST_CASE("Part Two tests") {
     std::ifstream istream(testFilename);
     PuzzleInput input(istream);
 
-    REQUIRE(input.lines.size() == 1);
-
-    SECTION("") {
-
-    }
 }
 #endif
 
 
 /// Part One Solution
-int64_t partOne() {
+ReturnType partOne() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
@@ -94,7 +77,7 @@ int64_t partOne() {
 
 
 /// Part Two Solution
-int64_t partTwo() {
+ReturnType partTwo() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 

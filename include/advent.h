@@ -3,24 +3,11 @@
 
 #include <bits/stdc++.h>
 
-/// Benchmarks a callable
-template<typename T>
-std::pair<double, T> eval(std::function<T(void)> func) {
-    const auto t1 = std::chrono::high_resolution_clock::now();
-    T result = func();
-    const auto t2 = std::chrono::high_resolution_clock::now();
-    const std::chrono::duration<double> seconds = t2 - t1;
+using ReturnType = std::variant<int64_t, uint64_t, double, std::string>;
 
-    return std::make_pair(seconds.count(), result);
-}
-
-template<typename T>
-void run(const std::string &day, const std::string &part, std::function<T(void)> func) {
-    std::cout << std::fixed << std::setprecision(3);
-    auto [seconds, result] = eval<T>(func);
-
-    std::cout << "Day " << day << ": Part " << part << " = " << result << "\t\t (completed in " << seconds
-              << "s)." << std::endl;
-}
+// external declarations
+ReturnType partOne();
+ReturnType partTwo();
+const extern std::string day;
 
 #endif //ADVENT_H
