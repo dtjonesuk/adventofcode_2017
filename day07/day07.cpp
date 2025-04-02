@@ -128,8 +128,7 @@ ReturnType partOne() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
 
-    std::cout << input.find_root() << std::endl;
-    return 0;
+    return input.find_root();
 }
 
 

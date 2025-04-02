@@ -154,9 +154,8 @@ ReturnType partOne() {
     PuzzleInput input(istream);
 
     auto [word, count] = find_word(input);
-    std::cout << word << std::endl;
 
-    return 0;
+    return word;
 }
 
 
@@ -166,5 +165,6 @@ ReturnType partTwo() {
     PuzzleInput input(istream);
 
     auto [word, count] = find_word(input);
+    
     return count;
 }

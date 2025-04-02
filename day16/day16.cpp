@@ -147,8 +147,8 @@ ReturnType partOne() {
     for (DanceMove &move: input.moves) {
         visitor.visit(move);
     }
-    std::cout << visitor.input << std::endl;
-    return 0;
+
+    return visitor.input;
 }
 
 
@@ -168,7 +168,6 @@ ReturnType partTwo() {
                 visitor.visit(move);
             }
             if (visited.contains(visitor.input)) {
-//                std::cout << "Repeat found: " << i << std::endl;
                 repeat = i;
                 break;
             }
@@ -183,6 +182,5 @@ ReturnType partTwo() {
         }
     }
 
-    std::cout << visitor.input << std::endl;
-    return 0;
+    return visitor.input;
 }

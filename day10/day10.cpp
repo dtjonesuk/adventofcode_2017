@@ -208,6 +208,6 @@ ReturnType partTwo() {
     PuzzleInput input(istream, true);
 
     String string(256);
-    std::cout << string.hashcode2(input.lines[0]) << std::endl;
-    return 0;
+
+    return string.hashcode2(input.lines[0]);
 }
