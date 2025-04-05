@@ -101,8 +101,8 @@ struct Simulation {
         auto adj = particles |
                    std::views::transform(&Particle<int64_t>::position) |
                    std::views::adjacent<2> |
-                   std::views::filter([](const auto &p) { return p.first == p.second; }) |
-                   std::views::transform([](const auto &p) { return p.first; });
+                   std::views::filter([](const auto &p) { return get<0>(p) == get<1>(p); }) |
+                   std::views::transform([](const auto &p) { return get<0>(p); });
 
         // output adjacent particles to a set of locations
         std::set<Vector3<int64_t>> collisions(begin(adj), end(adj));
