@@ -27,4 +27,5 @@ add_subdirectory(day19)
 add_subdirectory(day20)
 add_subdirectory(day21)
 add_subdirectory(day22)
+add_subdirectory(day23)
 
