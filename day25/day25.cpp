@@ -46,28 +46,20 @@ struct TuringMachine {
             ++i;
         }
     }
-    
+
 private:
     std::deque<int>::iterator current_position;
     char current_state;
 
-
-    void step() {
-        const auto &delta = transition_functions.at(current_state)(*current_position);
-        // Write value to current position
-        *current_position = delta.write;
-        
-        // Set next state
-        current_state = delta.next_state;
-        
-        if (delta.move == Transition::Right) {
+    void move(Transition::Direction direction) {
+        if (direction == Transition::Right) {
             // Add a zero if at end of tape, otherwise move right 
             if (next(current_position) == end(tape)) {
                 tape.push_back(0);
                 current_position = prev(end(tape));
             } else {
                 current_position++;
-            }            
+            }
         } else {
             // Add a zero if at beginning of tape, otherwise move left
             if (current_position == begin(tape)) {
@@ -76,8 +68,20 @@ private:
             } else {
                 --current_position;
             }
-        }
+        }        
+    }
+    
+    void step() {
+        const auto &delta = transition_functions.at(current_state)(*current_position);
+        
+        // Write value to current position
+        *current_position = delta.write;
 
+        // Move tape head
+        move(delta.move);
+        
+        // Set next state
+        current_state = delta.next_state;
     }
 };
 
@@ -95,43 +99,39 @@ struct PuzzleInput {
 
     explicit PuzzleInput(std::istream &istream) {
         std::string line;
-
-
+        
         while (std::getline(istream, line)) {
-                                std::smatch smatch;
-                        if (std::regex_match(line, smatch, begin_re)) {
-                            tm.initial_state = smatch.str(1)[0];
-                        } else if (std::regex_match(line, smatch, checksum_re)) {
-                            tm.checksum_after = stoi(smatch.str(1));
-                        } else if (std::regex_match(line, smatch, state_re)) {
-                            char state = smatch.str(1)[0];
-                            tm.states.insert(state);
-                            Transition transitions[2], *transition{nullptr};
+            std::smatch smatch;
+            if (std::regex_match(line, smatch, begin_re)) {
+                tm.initial_state = smatch.str(1)[0];
+            } else if (std::regex_match(line, smatch, checksum_re)) {
+                tm.checksum_after = stoi(smatch.str(1));
+            } else if (std::regex_match(line, smatch, state_re)) {
+                char state = smatch.str(1)[0];
+                tm.states.insert(state);
+                Transition transitions[2], *transition{nullptr};
 
-                            while (std::getline(istream, line) && !line.empty()) {
-                                if (std::regex_match(line, smatch, current_re)) {
-                                    int value = stoi(smatch.str(1));
-                                    transition = &transitions[value];
-                                } else if (std::regex_match(line, smatch, write_re)) {
-                                    assert(transition != nullptr);
-                                    transition->write = stoi(smatch.str(1));
-                                } else if (std::regex_match(line, smatch, move_re)) {
-                                    assert(transition != nullptr);
-                                    transition->move = smatch.str(1) == "right" ? Transition::Direction::Right
-                                                                                : Transition::Direction::Left;
-                                } else if (std::regex_match(line, smatch, continue_re)) {
-                                    assert(transition != nullptr);
-                                    transition->next_state = smatch.str(1)[0];
+                while (std::getline(istream, line) && !line.empty()) {
+                    if (std::regex_match(line, smatch, current_re)) {
+                        int value = stoi(smatch.str(1));
+                        transition = &transitions[value];
+                    } else if (std::regex_match(line, smatch, write_re)) {
+                        assert(transition != nullptr);
+                        transition->write = stoi(smatch.str(1));
+                    } else if (std::regex_match(line, smatch, move_re)) {
+                        assert(transition != nullptr);
+                        transition->move = smatch.str(1) == "right" ? Transition::Direction::Right
+                                                                    : Transition::Direction::Left;
+                    } else if (std::regex_match(line, smatch, continue_re)) {
+                        assert(transition != nullptr);
+                        transition->next_state = smatch.str(1)[0];
                     }
                 }
 
                 tm.transition_functions.emplace(state, transitions);
             }
-
-
         }
     }
-
 };
 
 /// Unit tests
@@ -175,7 +175,7 @@ ReturnType partOne() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
     TuringMachine &tm = input.tm;
-    
+
     tm.execute();
     auto n = std::ranges::count(tm.tape, 1);
     return n;
