@@ -76,7 +76,7 @@ private:
             } else {
                 --current_position;
             }
-        };
+        }
 
     }
 };
@@ -98,30 +98,30 @@ struct PuzzleInput {
 
 
         while (std::getline(istream, line)) {
-            std::smatch smatch;
-            if (std::regex_match(line, smatch, begin_re)) {
-                tm.initial_state = smatch.str(1)[0];
-            } else if (std::regex_match(line, smatch, checksum_re)) {
-                tm.checksum_after = stoi(smatch.str(1));
-            } else if (std::regex_match(line, smatch, state_re)) {
-                char state = smatch.str(1)[0];
-                tm.states.insert(state);
-                Transition transitions[2], *transition{nullptr};
+                                std::smatch smatch;
+                        if (std::regex_match(line, smatch, begin_re)) {
+                            tm.initial_state = smatch.str(1)[0];
+                        } else if (std::regex_match(line, smatch, checksum_re)) {
+                            tm.checksum_after = stoi(smatch.str(1));
+                        } else if (std::regex_match(line, smatch, state_re)) {
+                            char state = smatch.str(1)[0];
+                            tm.states.insert(state);
+                            Transition transitions[2], *transition{nullptr};
 
-                while (std::getline(istream, line) && !line.empty()) {
-                    if (std::regex_match(line, smatch, current_re)) {
-                        int value = stoi(smatch.str(1));
-                        transition = &transitions[value];
-                    } else if (std::regex_match(line, smatch, write_re)) {
-                        assert(transition != nullptr);
-                        transition->write = stoi(smatch.str(1));
-                    } else if (std::regex_match(line, smatch, move_re)) {
-                        assert(transition != nullptr);
-                        transition->move = smatch.str(1) == "right" ? Transition::Direction::Right
-                                                                    : Transition::Direction::Left;
-                    } else if (std::regex_match(line, smatch, continue_re)) {
-                        assert(transition != nullptr);
-                        transition->next_state = smatch.str(1)[0];
+                            while (std::getline(istream, line) && !line.empty()) {
+                                if (std::regex_match(line, smatch, current_re)) {
+                                    int value = stoi(smatch.str(1));
+                                    transition = &transitions[value];
+                                } else if (std::regex_match(line, smatch, write_re)) {
+                                    assert(transition != nullptr);
+                                    transition->write = stoi(smatch.str(1));
+                                } else if (std::regex_match(line, smatch, move_re)) {
+                                    assert(transition != nullptr);
+                                    transition->move = smatch.str(1) == "right" ? Transition::Direction::Right
+                                                                                : Transition::Direction::Left;
+                                } else if (std::regex_match(line, smatch, continue_re)) {
+                                    assert(transition != nullptr);
+                                    transition->next_state = smatch.str(1)[0];
                     }
                 }
 
