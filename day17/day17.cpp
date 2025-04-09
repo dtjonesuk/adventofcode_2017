@@ -139,6 +139,7 @@ ReturnType partOne() {
 
 
 /// Part Two Solution
+// Takes 720s to complete!
 ReturnType partTwo() {
     std::ifstream istream(inputFilename);
     PuzzleInput input(istream);
@@ -146,6 +147,8 @@ ReturnType partTwo() {
     CircularBuffer buffer;
 
     for (int i = 0; i <= 50'000'000; ++i) {
+//        if (i % 1'000'000 == 0)
+//            std::cout << "\r" << i << std::flush;
         buffer.forward(input.step);
         buffer.insert(i);
     }
